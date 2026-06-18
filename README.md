@@ -1,1 +1,59 @@
-# camera-site
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Camera</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #000;
+      color: #fff;
+    }
+    video {
+      width: 100%;
+      height: auto;
+      max-height: 100vh;
+      object-fit: cover;
+    }
+    button {
+      padding: 15px 25px;
+      font-size: 18px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 8px;
+      background: #00b894;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Tap to open your camera</h2>
+<button onclick="startCamera()">Open Camera</button>
+
+<video id="video" autoplay playsinline></video>
+
+<script>
+  async function startCamera() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: "user" // FRONT camera
+        }
+      });
+
+      const video = document.getElementById("video");
+      video.srcObject = stream;
+
+    } catch (err) {
+      alert("Camera access denied or not supported.");
+      console.error(err);
+    }
+  }
+</script>
+
+</body>
+</html>
